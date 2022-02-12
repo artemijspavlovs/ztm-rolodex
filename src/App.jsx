@@ -25,6 +25,7 @@ const App = () => {
 
     return (
         <div className="App">
+            <h1>Hello React</h1>
             <header className="App-header">
                 <SearchBox
                     handleChange={e => setSearchQuery(e.target.value)}
