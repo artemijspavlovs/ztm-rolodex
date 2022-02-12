@@ -1,6 +1,8 @@
 import './App.css'
 import CardList from "./components/CardList/CardList";
 import {useEffect, useState} from "react";
+import SearchBox from "./components/SearchBox/SearchBox";
+
 
 const App = () => {
     const [searchQuery, setSearchQuery] = useState("")
@@ -24,9 +26,10 @@ const App = () => {
     return (
         <div className="App">
             <header className="App-header">
-                <input type="" onChange={
-                    e => setSearchQuery(e.target.value)
-                }/>
+                <SearchBox
+                    handleChange={e => setSearchQuery(e.target.value)}
+                    placeholder="search robots"
+                />
                 <CardList monsters={monsters}/>
             </header>
         </div>
