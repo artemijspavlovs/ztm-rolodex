@@ -1,33 +1,36 @@
-import { useState, useEffect } from 'react'
-import logo from './logo.svg'
 import './App.css'
+import CardList from "./components/CardList/CardList";
+import {useEffect, useState} from "react";
 
 const App = () => {
-  useEffect(() => {
-    fetch("https://jsonplaceholder.typicode.com/users")
-        .then(resp => {
-          resp.json()
-            .then(users => {setUsers(users)})
-        })
-    return () => {
-      console.log("This happens once, on component UNMOUNT")
-    }
-  }, [])
-  const [count, setCount] = useState(0)
-  const [users, setUsers] = useState([])
+    const [searchQuery, setSearchQuery] = useState("")
+    const [users, setUsers] = useState([])
+    const monsters = users.filter(
+        user => user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    useEffect(() => {
+        fetch("https://jsonplaceholder.typicode.com/users")
+            .then(resp => {
+                resp.json()
+                    .then(users => {
+                        setUsers(users)
+                    })
+            })
+        return () => {
+            console.log("This happens once, on component UNMOUNT")
+        }
+    }, [])
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <p>Hello Vite + React!</p>
-        {users.map((member) => (
-            <div key={member.id}>
-              {member.name}
-            </div>
-        ))}
-      </header>
-    </div>
-  )
+    return (
+        <div className="App">
+            <header className="App-header">
+                <input type="" onChange={
+                    e => setSearchQuery(e.target.value)
+                }/>
+                <CardList monsters={monsters}/>
+            </header>
+        </div>
+    )
 }
 
 export default App
